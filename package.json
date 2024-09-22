@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "react-scripts test",
-    "sasss": "sass -w ./sass/estilos.scss src/css/estilos.css",
+    "sasss": "sass -w ./sass/estilos.scss src/assets/css/estilos.css",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject"
@@ -12,6 +12,7 @@
   "author": "Josue Fuentes",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.7.7",
     "bootstrap": "^5.3.0",
     "react": "^18.3.1",
     "react-bootstrap": "^2.1.2",
