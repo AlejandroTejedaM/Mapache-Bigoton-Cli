@@ -3,38 +3,44 @@
 
 
 .header {
-    height: 200px;
-    width: 90%;
-    margin: auto auto;
+  height: 85px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  transition: top 0.3s;
+
+  &.sticky {
+    position: fixed;
+    top: 0;
+  }
+
+  .contenedor-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .logo {
+    .img-logo {
+      height: 70px;
+
+    }
+  }
+
+  .navegacion {
+    width: 50%;
     display: flex;
     align-items: center;
-    position: fixed;
-    .contenedor-header {
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        align-items: center;
 
-        .logo {
-            .img-logo {
-                height: 70px;
-
-            }
-        }
-
-        .navegacion {
-            width: 700px;
-            display: flex;
-            align-items: center;
-
-            .nav {
-                @include m.formato-navs();
-                margin: 0 auto;
-            }
-        }
+    .nav {
+      @include m.formato-navs();
+      margin: 0 auto;
     }
-
-
-
-
+  }
 }
