@@ -7,14 +7,28 @@ body {
     background-size: cover;
     background-attachment: fixed;
 }
+html, body, #root {
+    height: 100%;
+    margin: 0;
+}
 
+.App {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+.content {
+    flex: 1;
+}
 .header {
     height: 200px;
     width: 90%;
     margin: auto auto;
     display: flex;
     align-items: center;
-
+    position: fixed;
     .contenedor-header {
         display: flex;
         width: 100%;
@@ -32,7 +46,7 @@ body {
             width: 700px;
             display: flex;
             align-items: center;
-            
+
             .nav {
                 @include m.formato-navs();
                 margin: 0 auto;

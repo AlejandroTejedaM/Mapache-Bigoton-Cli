@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <footer className="footer">
             <div className="background-footer">
-                <p>Mache Bigotón 2024</p>
+                <p className={"text-lg-center bg-black"}>Mache Bigotón 2024</p>
                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-copyright" width="24"
                      height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none"
                      strokeLinecap="round" strokeLinejoin="round">

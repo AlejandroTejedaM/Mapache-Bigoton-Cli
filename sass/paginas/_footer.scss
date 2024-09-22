@@ -1,13 +1,22 @@
 @use '../base/variables' as v;
 @use '../base/mixins' as m;
-
+/* src/Components/Footer/Footer.scss */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000; /* Asegúrate de que el footer esté por encima de otros elementos */
+    background-color: #000; /* Asegúrate de que el fondo sea visible */
+    color: #fff; /* Color del texto */
+    text-align: center;
+    padding: 10px 0;
+}
 .background-footer {
     background-color: v.$negro;
-    height: 100px;
+    height: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
-
     p{
         color: v.$blanco;
         @include m.formato-text();

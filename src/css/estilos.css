@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -309,16 +310,31 @@ template {
 
 .background-login {
   height: 700px;
-  background-image: url(../img/Background.png);
+  background-image: url(../../src/img/Background.png);
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 body {
-  background-image: url(../img/Fondo.jpg);
+  background-image: url(../../src/img/Fondo.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
 }
 
 .header {
@@ -327,6 +343,7 @@ body {
   margin: auto auto;
   display: flex;
   align-items: center;
+  position: fixed;
 }
 .header .contenedor-header {
   display: flex;
@@ -354,9 +371,21 @@ body {
   margin: 0 auto;
 }
 
+/* src/Components/Footer/Footer.scss */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000; /* Asegúrate de que el footer esté por encima de otros elementos */
+  background-color: #000; /* Asegúrate de que el fondo sea visible */
+  color: #fff; /* Color del texto */
+  text-align: center;
+  padding: 10px 0;
+}
+
 .background-footer {
   background-color: rgb(0, 0, 0);
-  height: 100px;
+  height: 10%;
   display: flex;
   justify-content: center;
   align-items: center;

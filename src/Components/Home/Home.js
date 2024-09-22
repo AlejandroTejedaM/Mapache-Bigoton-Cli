@@ -1,7 +1,9 @@
+import React from 'react';
+import ImagenPrincipal from '../../img/Background.png';
 function Home() {
     return (
         <div>
-            <h1>Home</h1>
+            <img src={ImagenPrincipal} alt="Imagen Principal" className="main-image"/>
         </div>
     );
 }
