@@ -1,10 +1,10 @@
 import React from 'react';
 
 const App = () => {
-    return(
-        <div>
-            <h1>
-                Hola
+    return (
+        <div className={'card'}>
+            <h1 className={'text-center text-black'}>
+                Hola Mundo
             </h1>
         </div>
     )
