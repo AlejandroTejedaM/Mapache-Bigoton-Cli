@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass -w ./sass/estilos.scss ./css/estilos.css",
+    "sass": "sass -w ./sass/estilos.scss src/css/estilos.css",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
