@@ -1,5 +1,6 @@
 import React from 'react';
-import ImagenPrincipal from '../../img/Background.png';
+import ImagenPrincipal from '../../assets/img/Background.png';
+
 function Home() {
     return (
         <div>
