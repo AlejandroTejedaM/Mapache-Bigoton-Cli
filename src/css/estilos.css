@@ -315,28 +315,6 @@ template {
   background-size: cover;
 }
 
-body {
-  background-image: url(../../src/img/Fondo.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-
-html, body, #root {
-  height: 100%;
-  margin: 0;
-}
-
-.App {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.content {
-  flex: 1;
-}
-
 .header {
   height: 200px;
   width: 90%;
@@ -396,6 +374,28 @@ html, body, #root {
   padding: 0;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   align-items: center;
+}
+
+body {
+  background-image: url(../../src/img/Fondo.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
 }
 
 /*# sourceMappingURL=estilos.css.map */
