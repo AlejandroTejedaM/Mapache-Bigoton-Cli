@@ -316,28 +316,36 @@ template {
 }
 
 .header {
-  height: 200px;
-  width: 90%;
-  margin: auto auto;
+  height: 85px;
+  width: 100%;
   display: flex;
   align-items: center;
+  background-color: #ffffff;
   position: fixed;
+  top: 0;
+  z-index: 1000;
+  transition: top 0.3s;
+}
+.header.sticky {
+  position: fixed;
+  top: 0;
 }
 .header .contenedor-header {
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  padding: 10px;
 }
-.header .contenedor-header .logo .img-logo {
+.header .logo .img-logo {
   height: 70px;
 }
-.header .contenedor-header .navegacion {
-  width: 700px;
+.header .navegacion {
+  width: 50%;
   display: flex;
   align-items: center;
 }
-.header .contenedor-header .navegacion .nav {
+.header .navegacion .nav {
   margin: 0;
   padding: 0;
   text-decoration: none;
@@ -376,13 +384,6 @@ template {
   align-items: center;
 }
 
-body {
-  background-image: url(../../src/img/Fondo.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-
 html, body, #root {
   height: 100%;
   margin: 0;
@@ -391,11 +392,14 @@ html, body, #root {
 .App {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .content {
   flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #f4f4f4; /* Ajusta el fondo como prefieras */
 }
 
 /*# sourceMappingURL=estilos.css.map */
