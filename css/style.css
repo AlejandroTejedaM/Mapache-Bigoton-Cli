@@ -1,0 +1,86 @@
+.formulario {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    max-width: 90%;
+}
+.formulario{
+    position: absolute;
+    top: 80%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.username, .contraseña {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 8px 0;
+    font-size: 14px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+}
+
+label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 8px 0;
+    font-size: 14px;
+    color: #666;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+input:focus ~ label,
+input:valid ~ label {
+    top: -18px;
+    left: 0;
+    color: #3498db;
+    font-size: 12px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #2792c7;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+.Registrarse {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.Registrarse a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.Registrarse a:hover {
+    text-decoration: underline;
+}
