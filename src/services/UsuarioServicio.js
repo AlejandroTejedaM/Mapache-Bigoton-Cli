@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // URL base de la API
-const URL_BASE = "http://localhost:8050/api/usuario";
+const URL_BASE = "http://localhost:8080/api/usuario";
 
 axios.interceptors.request.use(
     config => {
