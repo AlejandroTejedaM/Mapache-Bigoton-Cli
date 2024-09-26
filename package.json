@@ -3,14 +3,37 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass -w ./sass/estilos.scss ./css/estilos.css"
+    "test": "react-scripts test",
+    "sasss": "sass -w ./sass/estilos.scss src/assets/css/estilos.css",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
   },
   "author": "Josue Fuentes",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "barberia": "file:",
+    "axios": "^1.7.7",
+    "bootstrap": "^5.3.0",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.1.2",
+    "react-dom": "^18.3.1",
+    "react-icons": "^4.3.1",
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "^5.0.1",
     "sass": "^1.78.0"
+  },
+  "keywords": [],
+  "description": "",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
