@@ -14,6 +14,7 @@ const useCitas = () => {
         try {
             setLoading(true);
             const response = await citaService.findAll();
+            console.log(response.data);
             setCitas(response.data);
         } catch (error) {
             setError('Error fetching citas');

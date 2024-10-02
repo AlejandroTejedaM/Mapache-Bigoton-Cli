@@ -4,13 +4,13 @@ import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
 import 'datatables.net-bs5';
 import { format } from 'date-fns';
 import useCitas from '../../hooks/useCitas';
-import ModalGenerico from '../CitasComponentes/ModalGenerico';
 import ModalConfirmacionGenerico from '../CitasComponentes/ModalConfirmacionGenerico';
 
 const TablaCitasComponent = ({ onEditCita }) => {
-    const { citas, loading, error, deleteCita, updateCita } = useCitas();
+    const { citas, loading, error, deleteCita, updateCita, fetchCitas } = useCitas();
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [selectedCita, setSelectedCita] = useState(null);
+    const [refresh, setRefresh] = useState(false);
     const tableRef = useRef(null);
     const tableInstance = useRef(null);
 
@@ -28,6 +28,10 @@ const TablaCitasComponent = ({ onEditCita }) => {
         }
     }, [loading, citas]);
 
+    useEffect(() => {
+        fetchCitas();
+    }, [refresh]);
+
     const handleDelete = (cita) => {
         setSelectedCita(cita);
         setShowConfirmModal(true);
@@ -36,6 +40,12 @@ const TablaCitasComponent = ({ onEditCita }) => {
     const handleConfirmDelete = async () => {
         await deleteCita(selectedCita.citaId);
         setShowConfirmModal(false);
+        setRefresh(!refresh);
+    };
+
+    const handleEditCita = async (cita) => {
+        await updateCita(cita);
+        setRefresh(!refresh);
     };
 
     if (loading) {
@@ -70,14 +80,14 @@ const TablaCitasComponent = ({ onEditCita }) => {
                         <tbody>
                         {citas.map((cita) => (
                             <tr key={cita.citaId}>
-                                <td>{cita.citaId}</td>
+                                <td>{cita.citaId || "N/A"}</td>
                                 <td>{format(new Date(cita.fechaHora), 'dd/MM/yyyy HH:mm')}</td>
                                 <td>{cita.servicio?.nombre || 'N/A'}</td>
                                 <td>{cita.user?.nombre || 'N/A'}</td>
                                 <td>{cita.barbero?.nombre || 'N/A'}</td>
                                 <td>
                                     <button className="btn btn-sm btn-primary me-2"
-                                            onClick={() => onEditCita(cita)}>Editar
+                                            onClick={() => onEditCita(cita, handleEditCita)}>Editar
                                     </button>
                                     <button className="btn btn-sm btn-danger"
                                             onClick={() => handleDelete(cita)}>Eliminar

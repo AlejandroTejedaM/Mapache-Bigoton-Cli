@@ -8,49 +8,43 @@ import {format} from "date-fns";
 
 const ModalAgregarCita = ({show, handleClose, handleSave, data}) => {
     const {usuario} = useContext(UsuarioContext);
+    const [formData, setFormData] = useState({
+        fechaHora: data ? format(new Date(data.fechaHora), 'yyyy-MM-dd\'T\'HH:mm') : '',
+        sucursal: {sucursalId: data?.servicio?.sucursal?.sucursalId || ''},
+        servicio: {servicioId:  data?.servicio?.servicioId || ''},
+        barbero : {barberoId: data?.barbero?.barberoId || ''},
+        user : {usuarioId: usuario.usuarioId},
+        citaId : data?.citaId || null
+    });
+
     const {sucursales, loading: loadingSucursal, error: errorSucursal} = useSucursal();
-    const [sucursalId, setSucursalId] = useState(data?.servicio?.sucursal?.sucursalId || null);
+    const [sucursalId, setSucursalId] = useState(formData.sucursal.sucursalId);
     const {barberos, loading: loadingBarbero, error: errorBarbero} = useBarbero(sucursalId);
     const {servicios, loading: loadingServicio, error: errorServicio} = useServicio(sucursalId);
 
-    const [formData, setFormData] = useState({
-        fechaHora: data ? format(new Date(data.fechaHora), 'yyyy-MM-dd\'T\'HH:mm') : '',
-        idsucursal: data?.servicio?.sucursal?.sucursalId || '',
-        idServicio: data?.servicio?.servicioId || '',
-        idbarbero: data?.barbero?.barberoId || '',
-        idusuario: usuario.usuarioId
-    });
-
     useEffect(() => {
-        console.log("Sucursales disponibles:", sucursales);
-        console.log("Data de cita al editar:", data);
-
-        if (sucursales.length > 0 && !formData.idsucursal) {
+        if (sucursales.length > 0 && !formData.sucursal.sucursalId) {
             const firstSucursal = sucursales[0].sucursalId;
             setFormData((prevData) => ({
                 ...prevData,
-                idsucursal: data?.servicio?.sucursal?.sucursalId || firstSucursal
+                sucursal : { sucursalId: data?.servicio?.sucursal?.sucursalId || firstSucursal}
             }));
             setSucursalId(data?.servicio?.sucursal?.sucursalId || firstSucursal);
         }
-    }, [sucursales]);
+    }, [sucursales, data]);
 
     useEffect(() => {
-        console.log("Sucursal seleccionada:", sucursalId);
-        console.log("Barberos disponibles:", barberos);
-        console.log("Servicios disponibles:", servicios);
-        console.log("Data de cita al editar:", data);
         if (sucursalId) {
-            if (barberos.length > 0 && !formData.idbarbero) {
+            if (barberos.length > 0 && !formData.barbero.barberoId) {
                 setFormData((prevData) => ({
                     ...prevData,
-                    idbarbero: data?.barbero?.barberoId || barberos[0].barberoId
+                    barbero : {barberoId: data?.barbero?.barberoId || barberos[0].barberoId}
                 }));
             }
-            if (servicios.length > 0 && !formData.idServicio) {
+            if (servicios.length > 0 && !formData.servicio.servicioId) {
                 setFormData((prevData) => ({
                     ...prevData,
-                    idServicio: data?.servicio?.servicioId || servicios[0].servicioId
+                    servicio : {servicioId: data?.servicio?.servicioId || servicios[0].servicioId}
                 }));
             }
         }
@@ -58,14 +52,19 @@ const ModalAgregarCita = ({show, handleClose, handleSave, data}) => {
 
     const handleChange = (e) => {
         const {name, value} = e.target;
-        console.log(`Cambiando ${name}: ${value}`);
-        setFormData({...formData, [name]: value});
-        if (name === 'sucursal') {
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+            sucursal: name === 'idSucursal' ? {sucursalId: value} : prevData.sucursal
+        }));
+        if (name === 'idSucursal') {
             setSucursalId(value);
         }
+        console.log(formData);
     };
 
     const handleSubmit = () => {
+        console.log(formData);
         handleSave(formData);
     };
 
@@ -92,8 +91,8 @@ const ModalAgregarCita = ({show, handleClose, handleSave, data}) => {
                             <div>Sucursal</div>
                             <Form.Control
                                 as="select"
-                                name='idsucursal'
-                                value={formData.idsucursal || ''}
+                                name='idSucursal'
+                                value={formData.sucursal.sucursalId || ''}
                                 onChange={handleChange}
                             >
                                 {sucursales.map((sucursal) => (
@@ -109,7 +108,7 @@ const ModalAgregarCita = ({show, handleClose, handleSave, data}) => {
                             <Form.Control
                                 as="select"
                                 name='idServicio'
-                                value={formData.idServicio || ''}
+                                value={formData.servicio.servicioId || ''}
                                 onChange={handleChange}
                             >
                                 {servicios.map((servicio) => (
@@ -125,7 +124,7 @@ const ModalAgregarCita = ({show, handleClose, handleSave, data}) => {
                             <Form.Control
                                 as="select"
                                 name='idbarbero'
-                                value={formData.idbarbero || ''}
+                                value={formData.barbero.barberoId || ''}
                                 onChange={handleChange}
                             >
                                 {barberos.map((barbero) => (

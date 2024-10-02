@@ -27,6 +27,17 @@ function Citas() {
         } else {
             await createCita(formData.fechaHora, formData.idServicio, formData.idusuario, formData.idbarbero);
         }
+        /*
+         const [formData, setFormData] = useState({
+        fechaHora: data ? format(new Date(data.fechaHora), 'yyyy-MM-dd\'T\'HH:mm') : '',
+        sucursal: {sucursalId: data?.servicio?.sucursal?.sucursalId || ''},
+        servicio: {servicioId:  data?.servicio?.servicioId || ''},
+        barbero : {barberoId: data?.barbero?.barberoId || ''},
+        user : {idusuario: usuario.usuarioId},
+        cita : {citaId: data?.citaId || null}
+    });
+
+         */
         await fetchCitas();
         setShowModal(false);
         navigate(0); // Refresh the page
