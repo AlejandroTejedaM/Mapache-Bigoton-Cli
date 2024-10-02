@@ -1,91 +1,61 @@
-import {useEffect, useState} from "react";
-import citaService from "../services/CitaService";
+import { useState, useEffect } from 'react';
+import citaService from '../services/CitaService';
 
-let  useCitas = (idCita) => {
+const useCitas = () => {
     const [citas, setCitas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         fetchCitas();
-    }, [idCita]);
+    }, []);
 
-    async function fetchCitas() {
+    const fetchCitas = async () => {
         try {
             setLoading(true);
             const response = await citaService.findAll();
             setCitas(response.data);
         } catch (error) {
-            setError("Ocurrió un error al intentar obtener las citas");
+            setError('Error fetching citas');
         } finally {
             setLoading(false);
         }
-    }
+    };
 
-    async function deleteCita(id) {
+    const createCita = async (fechaHora, idServicio, idUsuario, idBarbero) => {
         try {
-            setLoading(true);
-            await citaService.delete(id);
-            fetchCitas();
-        } catch (error) {
-            setError("Ocurrió un error al intentar eliminar la cita");
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    async function createCita(fechaHora, idServicio, idUsuario, idBarbero) {
-        try {
-            setLoading(true);
-            const cita = ({
-                fechaHora: fechaHora,
-                servicio: {
-                    servicioId: idServicio
-                },
-                usuario: {
-                    usuarioId: idUsuario
-                },
-                barbero: {
-                    barberoId: idBarbero
-                }
-            });
+            const cita = {
+                fechaHora,
+                servicio: { servicioId: idServicio },
+                user: { usuarioId: idUsuario },
+                barbero: { barberoId: idBarbero }
+            };
             await citaService.create(cita);
-            fetchCitas();
+            await fetchCitas(); // Refresh the list of appointments
         } catch (error) {
-            setError("Ocurrió un error al intentar crear la cita");
-        } finally {
-            setLoading(false);
+            setError('Error creating cita');
         }
-    }
+    };
 
-    async function updateCita(id, fechaHora, idServicio, idUsuario, idBarbero) {
+    const deleteCita = async (id) => {
         try {
-            setLoading(true);
-            const cita = ({
-                citaId: id,
-                fechaHora: fechaHora,
-                servicio: {
-                    servicioId: idServicio
-                },
-                usuario: {
-                    usuarioId: idUsuario
-                },
-                barbero: {
-                    barberoId: idBarbero
-                }
-            });
-            await citaService.update(id, cita);
-            fetchCitas();
+            await citaService.delete(id);
+            await fetchCitas(); // Refresh the list of appointments
         } catch (error) {
-            setError("Ocurrió un error al intentar actualizar la cita");
-        } finally {
-            setLoading(false);
+            setError('Error deleting cita');
+        }
+    };
+
+    const updateCita = async (id, cita) => {
+        try {
+            await citaService.update(id, cita);
+            await fetchCitas(); // Refresh the list of appointments
+        } catch (error) {
+            setError('Error updating cita');
         }
     }
 
-
-
-    return {citas, loading, error};
-}
+    return { citas, loading, error, createCita, deleteCita, updateCita, fetchCitas }
+};
 
 export default useCitas;

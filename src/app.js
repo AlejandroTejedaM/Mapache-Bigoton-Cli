@@ -13,7 +13,7 @@ const App = () => {
     const { usuario, setUsuario } = useContext(UsuarioContext);
 
     useEffect(() => {
-        const token = "a"//localStorage.getItem('token');
+        const token = "1"//localStorage.getItem('token');
         if (token) {
             setUsuario(prevState => ({
                 ...prevState,

@@ -1,8 +1,37 @@
-import TablaCitasComponent from "../CitasComponentes/TablaCitasComponent";
-import {Button, Col, Row} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import React, { useState } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import ModalAgregarCita from '../CitasComponentes/ModalAgregarCita';
+import TablaCitasComponent from '../CitasComponentes/TablaCitasComponent';
+import useCitas from '../../hooks/useCitas';
 
 function Citas() {
+    const [showModal, setShowModal] = useState(false);
+    const [currentCita, setCurrentCita] = useState(null);
+    const { citas, loading, error, createCita, updateCita, fetchCitas } = useCitas();
+    const navigate = useNavigate();
+
+    const handleAddCita = () => {
+        setCurrentCita(null);
+        setShowModal(true);
+    };
+
+    const handleEditCita = (cita) => {
+        setCurrentCita(cita);
+        setShowModal(true);
+    };
+
+    const handleSave = async (formData) => {
+        if (currentCita) {
+            await updateCita(currentCita.citaId, formData.fechaHora, formData.idServicio, formData.idusuario, formData.idbarbero);
+        } else {
+            await createCita(formData.fechaHora, formData.idServicio, formData.idusuario, formData.idbarbero);
+        }
+        await fetchCitas();
+        setShowModal(false);
+        navigate(0); // Refresh the page
+    };
+
     return (
         <div>
             <Row>
@@ -12,14 +41,20 @@ function Citas() {
             </Row>
             <Row>
                 <Col>
-                    <TablaCitasComponent/>
+                    <TablaCitasComponent citas={citas} loading={loading} error={error} onEditCita={handleEditCita} />
                 </Col>
             </Row>
             <Row>
-                <Col className={"text-center py-5"}>
-                    <Link className={"btn btn-dark btn-lg"} to={"/citas/agregar"}>Agregar Cita</Link>
+                <Col className="text-center py-5">
+                    <Button className="btn btn-dark btn-lg" onClick={handleAddCita}>Agregar Cita</Button>
                 </Col>
             </Row>
+            <ModalAgregarCita
+                show={showModal}
+                handleClose={() => setShowModal(false)}
+                handleSave={handleSave}
+                data={currentCita}
+            />
         </div>
     );
 }
