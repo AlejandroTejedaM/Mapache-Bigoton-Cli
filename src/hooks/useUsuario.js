@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import UsuarioServicio from "../services/UsuarioServicio";
 
 let useUsuario = (idUsuario) => {
-    const [usuario, setUsuario] = useState({});
+    const [usuarios, setUsuarios] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -14,7 +14,7 @@ let useUsuario = (idUsuario) => {
         try {
             setLoading(true);
             let response = await UsuarioServicio.findAll();
-            setUsuario(response.data);
+            setUsuarios(response.data);
         } catch (error) {
             setError("Ocurrió un error al intentar obtener los usuarios");
         } finally {
@@ -28,7 +28,7 @@ let useUsuario = (idUsuario) => {
             await UsuarioServicio.delete(id);
             fetchUsuarios();
         } catch (error) {
-            setError("Ocurrió un error al intentar eliminar el usuario");
+            setError("Ocurrió un error al intentar eliminar el usuarios");
         } finally {
             setLoading(false);
         }
@@ -46,7 +46,7 @@ let useUsuario = (idUsuario) => {
             await UsuarioServicio.create(usuario);
             fetchUsuarios();
         } catch (error) {
-            setError("Ocurrió un error al intentar crear el usuario");
+            setError("Ocurrió un error al intentar crear el usuarios");
         } finally {
             setLoading(false);
         }
@@ -65,19 +65,20 @@ let useUsuario = (idUsuario) => {
             await UsuarioServicio.update(id, usuario);
             fetchUsuarios();
         } catch (error) {
-            setError("Ocurrió un error al intentar actualizar el usuario");
+            setError("Ocurrió un error al intentar actualizar el usuarios");
         } finally {
             setLoading(false);
         }
     }
 
     return {
-        usuario,
+        usuarios: usuarios,
         loading,
         error,
         deleteUsuario,
         createUsuario,
-        updateUsuario
+        updateUsuario,
+        fetchUsuarios
     };
 }
 
