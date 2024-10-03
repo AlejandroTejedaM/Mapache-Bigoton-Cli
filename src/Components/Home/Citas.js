@@ -1,4 +1,4 @@
-import TablaCitasComponent from "../CitasComponentes/TablaCitasComponent";
+import TablaCitasComponent from "../Componentes/TablaCitasComponent";
 import {Button, Col, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
