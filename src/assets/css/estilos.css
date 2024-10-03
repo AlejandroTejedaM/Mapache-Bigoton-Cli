@@ -472,4 +472,31 @@ input[type=submit]:hover {
   text-decoration: underline;
 }
 
+.table-responsive {
+  overflow: visible;
+}
+
+.card-title {
+  margin-bottom: 0;
+}
+
+.custom-card {
+  border: 1px solid #000000;
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 3px rgba(6, 6, 6, 0.2);
+  padding: 1rem;
+  background-color: #fff;
+}
+
+.custom-card-header {
+  background-color: #f8f9fa; /* Fondo gris claro */
+  border-bottom: 1px solid #030303;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.custom-card-title {
+  margin-bottom: 0;
+}
+
 /*# sourceMappingURL=estilos.css.map */
