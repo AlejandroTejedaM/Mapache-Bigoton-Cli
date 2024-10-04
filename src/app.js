@@ -13,7 +13,9 @@ const App = () => {
     const { usuario, setUsuario } = useContext(UsuarioContext);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        //const token = localStorage.getItem('token');
+        const token = "1";
+
         if (token) {
             setUsuario(prevState => ({
                 ...prevState,

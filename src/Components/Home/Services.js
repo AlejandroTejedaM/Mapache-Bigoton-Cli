@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { PlusCircle, MinusCircle, Trash2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
-
+import { PlusCircle, MinusCircle, Trash2} from 'lucide-react';
+import {Button, Card, CardHeader, CardTitle} from "react-bootstrap";
+import ScrollArea from 'react-scrollbar';
 const ServicesTable = ({ title, services, onAdd }) => {
   return (
     <Card className="mb-6">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
-      <CardContent>
+      <div className="p-4">
         <table className="w-full">
           <tbody>
             {services.map((service) => (
@@ -31,7 +29,7 @@ const ServicesTable = ({ title, services, onAdd }) => {
             ))}
           </tbody>
         </table>
-      </CardContent>
+      </div>
     </Card>
   );
 };
@@ -44,7 +42,7 @@ const CartSummary = ({ cart, onIncrease, onDecrease, onRemove }) => {
       <CardHeader>
         <CardTitle>Resumen del Carrito</CardTitle>
       </CardHeader>
-      <CardContent>
+      <div className="p-4">
         <ScrollArea className="h-[400px] pr-4">
           {cart.length === 0 ? (
             <p>No hay servicios seleccionados.</p>
@@ -75,7 +73,7 @@ const CartSummary = ({ cart, onIncrease, onDecrease, onRemove }) => {
           <p className="text-lg font-bold">Total: ${total.toFixed(2)}</p>
           <Button className="w-full mt-4">Adquirir servicios</Button>
         </div>
-      </CardContent>
+      </div>
     </Card>
   );
 };
