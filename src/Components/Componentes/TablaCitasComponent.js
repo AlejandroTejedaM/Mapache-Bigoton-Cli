@@ -4,7 +4,7 @@ import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
 import 'datatables.net-bs5';
 import {format} from 'date-fns';
 import useCitas from '../../hooks/useCitas';
-import ModalConfirmacionGenerico from '../CitasComponentes/ModalConfirmacionGenerico';
+import ModalConfirmacionGenerico from '../Componentes/ModalConfirmacionGenerico';
 
 const TablaCitasComponent = ({onEditCita, refresh}) => {
     const {citas, loading, error, deleteCita, updateCita, fetchCitas} = useCitas();

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import ModalAgregarCita from '../CitasComponentes/ModalAgregarCita';
-import TablaCitasComponent from '../CitasComponentes/TablaCitasComponent';
+import ModalAgregarCita from '../Componentes/ModalAgregarCita';
+import TablaCitasComponent from '../Componentes/TablaCitasComponent';
 import useCitas from '../../hooks/useCitas';
 
 function Citas() {

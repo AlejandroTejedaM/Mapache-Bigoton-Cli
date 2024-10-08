@@ -1,91 +1,37 @@
-import {useEffect, useState} from "react";
-import servicioService from "../services/ServicioService";
+import { useState, useEffect } from 'react';
+import ServicioService from '../services/ServicioService';
 
-let useServicio = (sucursalId) => {
+const useServicio = () => {
     const [servicios, setServicios] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        if (sucursalId) {
-            fetchServicios(sucursalId);
-        }
-    }, [sucursalId]);
-
-    const fetchServicios = async (sucursalId) => {
+    const createServicio = async (servicio) => {
         try {
-            setLoading(true);
-            const response = await servicioService.findBySucursalId(sucursalId);
-            setServicios(response.data);
+            await ServicioService.create(servicio);
         } catch (error) {
-            setError("Ocurrió un error al intentar obtener los servicios");
-        } finally {
-            setLoading(false);
+            setError('Error creating servicio');
         }
     };
 
-    async function deleteServicio(id) {
+    const deleteServicio = async (id) => {
         try {
-            setLoading(true);
-            await servicioService.delete(id);
-            fetchServicios();
+            await ServicioService.delete(id);
         } catch (error) {
-            setError("Ocurrió un error al intentar eliminar el servicio");
-        } finally {
-            setLoading(false);
+            setError('Error deleting servicio');
         }
-    }
-
-    async function createServicio(nombre, descripcion, precio, duracion, sucursalId) {
-        try {
-            setLoading(true);
-            const servicio = ({
-                nombre: nombre,
-                descripcion: descripcion,
-                precio: precio,
-                duracion: duracion,
-                sucursal: {
-                    sucursalId: sucursalId
-                }
-            });
-            await servicioService.create(servicio);
-            fetchServicios();
-        } catch (error) {
-            setError("Ocurrió un error al intentar crear el servicio");
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    async function updateServicio(id, nombre, descripcion, precio, duracion, sucursalId) {
-        try {
-            setLoading(true);
-            const servicio = ({
-                nombre: nombre,
-                descripcion: descripcion,
-                precio: precio,
-                duracion: duracion,
-                sucursal: {
-                    sucursalId: sucursalId
-                }
-            });
-            await servicioService.update(id, servicio);
-            fetchServicios();
-        } catch (error) {
-            setError("Ocurrió un error al intentar actualizar el servicio");
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    return {
-        servicios,
-        loading,
-        error,
-        deleteServicio,
-        createServicio,
-        updateServicio
     };
-}
+
+    const updateServicio = async (id, servicio) => {
+        try {
+            await ServicioService.update(id, cita);
+            console.log("Servicio actualizado");
+        } catch (error) {
+            setError('Error updating servicio');
+        }
+    }
+
+    return { servicios, loading, error, createServicio, deleteServicio, updateServicio }
+};
 
 export default useServicio;
