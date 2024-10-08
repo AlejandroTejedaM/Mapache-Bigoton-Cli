@@ -1,6 +1,6 @@
-import axios from "axios";
-//URL Base de la API
-const URL_BASE = "http://localhost:8080/api/servicio";
+import axios  from "axios";
+
+const URL_BASE = "http://localhost:8090/api/servicio";
 
 axios.interceptors.request.use(
     config => {
@@ -20,22 +20,26 @@ class ServicioService {
         return axios.get(URL_BASE);
     }
 
-    create(servicio){
+    create(servicio) {
         return axios.post(URL_BASE, servicio);
     }
 
-    findById(servicioId) {
-        return axios.get(`${URL_BASE}/${servicioId}`);
+    findById(idServicio) {
+        return axios.get(`${URL_BASE}/${idServicio}`);
     }
 
-    update(servicioId, servicio) {
-        return axios.put(`${URL_BASE}/${servicioId}`, servicio);
+    findBySucursalId(sucursalId) {
+        return axios.get(`${URL_BASE}/sucursal/${sucursalId}`);
     }
 
-    async delete(servicioId) {
-        return axios.delete(`${URL_BASE}/${servicioId}`);
+    update(idServicio, servicio) {
+        return axios.put(`${URL_BASE}/${idServicio}`, servicio);
     }
+
+    delete(idServicio) {
+        return axios.delete(`${URL_BASE}/${idServicio}`);
+    }
+
 }
 
-//Exporta una nueva instancia de ServiciosService
 export default new ServicioService();

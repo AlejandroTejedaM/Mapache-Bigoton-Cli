@@ -21,7 +21,6 @@ const Login = () => {
                 localStorage.setItem('token', token);
                 const userResponse = await UsuarioServicio.findyByCorreo(correo);
                 const userData = userResponse.data;
-
                 setUsuario(prevState => ({
                     ...prevState,
                     ...userData,

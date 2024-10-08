@@ -6,6 +6,7 @@ export const UsuarioProvider = ({ children }) => {
         const [usuario, setUsuario] = useState({
                 token: null,
                 isLogged: false,
+                usuarioId: "3",
                 // Agrega otras propiedades del usuario según sea necesario
         });
         return (
