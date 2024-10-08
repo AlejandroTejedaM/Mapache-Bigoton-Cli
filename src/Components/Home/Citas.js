@@ -60,7 +60,7 @@ function Citas() {
             </Row>
             <Row>
                 <Col className="text-center py-5">
-                    <Button className="btn btn-dark btn-lg" onClick={handleAddCita}>Agregar Cita</Button>
+                    <Button className="btn btn-dark btn-lg" onClick={handleAddCita}>Agendar Cita</Button>
                 </Col>
             </Row>
             <ModalAgregarCita

@@ -86,6 +86,7 @@ const ModalAgregarCita = ({show, handleClose, handleSave, data}) => {
                             value={fechaHora}
                             onChange={handleChange}
                             name="fechaHora"
+                            required
                         />
                     </Form.Group>
                     <Form.Group controlId="sucursalId">
@@ -95,6 +96,7 @@ const ModalAgregarCita = ({show, handleClose, handleSave, data}) => {
                             name="sucursalId"
                             value={sucursalId}
                             onChange={handleChange}
+                            required
                         >
                             {sucursales.map(sucursal => (
                                 <option key={sucursal.sucursalId} value={sucursal.sucursalId}>
@@ -110,6 +112,7 @@ const ModalAgregarCita = ({show, handleClose, handleSave, data}) => {
                             name="servicioId"
                             value={servicioId}
                             onChange={handleChange}
+                            required
                         >
                             {servicios.map(servicio => (
                                 <option key={servicio.servicioId} value={servicio.servicioId}>
@@ -125,6 +128,7 @@ const ModalAgregarCita = ({show, handleClose, handleSave, data}) => {
                             name="barberoId"
                             value={barberoId}
                             onChange={handleChange}
+                            required
                         >
                             {barberos.map(barbero => (
                                 <option key={barbero.barberoId} value={barbero.barberoId}>
