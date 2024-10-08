@@ -4,7 +4,7 @@ import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
 import 'datatables.net-bs5';
 import useCitas from '../../hooks/useServicio';
 
-const TabalaServiciosComponent = () => {
+const TablaServiciosComponent = () => {
     const {servicios, loading, error} = useCitas();
     const [tableInitialized, setTableInitialized] = useState(false);
     const tableRef = useRef(null);
@@ -81,4 +81,4 @@ const TabalaServiciosComponent = () => {
     );
 }
 
-export default TabalaServiciosComponent;
+export default TablaServiciosComponent;

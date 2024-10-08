@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import { PlusCircle, MinusCircle, Trash2} from 'lucide-react';
 import {Button, Card, CardHeader, CardTitle} from "react-bootstrap";
 import ScrollArea from 'react-scrollbar';
@@ -187,15 +187,14 @@ const Services = () => {
 };
 
 export default Services;
+*/
 
 
 
 
 
 
-
-
-/*import TabalaServiciosComponent from "../Componentes/TablaServiciosComponent";
+import TablaServiciosComponent from "../Componentes/TablaServiciosComponent";
 import {Button, Col, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
@@ -209,7 +208,7 @@ function Services() {
             </Row>
             <Row>
                 <Col>
-                    <TabalaServiciosComponent/>
+                    <TablaServiciosComponent/>
                 </Col>
             </Row>
             <Row>
@@ -221,7 +220,7 @@ function Services() {
     );
 }
 
-export default Services;*/
+export default Services;
 
 
 
