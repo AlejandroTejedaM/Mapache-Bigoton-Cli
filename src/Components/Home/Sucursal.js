@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
-import ModalAgregarSucursal from '../SucursalComponentes/ModalAgregarSucural';
+import ModalAgregarSucursal from '../SucursalComponentes/ModalAgregarSucursal';
 import TablaSucursalesComponent from '../SucursalComponentes/TablaSucursalesComponent';
 import useSucursales from '../../hooks/useSucursal';
 
@@ -8,7 +8,7 @@ const Sucursal = () => {
     const [showModal, setShowModal] = useState(false);
     const [currentSucursal, setCurrentSucursal] = useState(null);
     const { sucursales, loading, error, addSucursal, editSucursal } = useSucursales();
-
+    const navigate = () => window.location.reload();
     const handleAddSucursal = () => {
         setCurrentSucursal(null);
         setShowModal(true);
@@ -20,12 +20,13 @@ const Sucursal = () => {
     };
 
     const handleSave = async (sucursal) => {
-        if (sucursal.id) {
-            await editSucursal(sucursal.id, sucursal);
+        if (sucursal.sucursalId) {
+            await editSucursal(sucursal.sucursalId, sucursal);
         } else {
             await addSucursal(sucursal);
         }
         setShowModal(false);
+        navigate(0);
     };
 
     const handleClose = () => {

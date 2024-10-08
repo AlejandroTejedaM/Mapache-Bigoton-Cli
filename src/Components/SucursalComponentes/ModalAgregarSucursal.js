@@ -27,11 +27,11 @@ const ModalAgregarSucursal = ({show, handleClose, handleSave, data}) => {
 
     const handleSubmit = () => {
         const sucursal = {
-            id: data ? data.id : null,
+            sucursalId: data ? data.sucursalId : null,
             nombre,
-            direccion,
-            telefono,
+            direccion
         };
+        console.log(sucursal);
         handleSave(sucursal);
     };
 
@@ -45,7 +45,6 @@ const ModalAgregarSucursal = ({show, handleClose, handleSave, data}) => {
                     <Form.Group controlId="nombre">
                         <div>Nombre</div>
                         <Form.Control
-                            type="text"
                             name="nombre"
                             value={nombre}
                             onChange={handleChange}
@@ -55,20 +54,10 @@ const ModalAgregarSucursal = ({show, handleClose, handleSave, data}) => {
                     <Form.Group controlId="direccion">
                         <div>Dirección</div>
                         <Form.Control
-                            type="text"
                             name="direccion"
                             value={direccion}
                             onChange={handleChange}
                             required
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="telefono">
-                        <div>Teléfono</div>
-                        <Form.Control
-                            type="text"
-                            name="telefono"
-                            value={telefono}
-                            onChange={handleChange}
                         />
                     </Form.Group>
                 </Form>
