@@ -39,13 +39,17 @@ let useUsuario = (idUsuario) => {
             setLoading(true);
             const usuario = ({
                 nombre: nombre,
-                correo: email,
+                correo: correo,
                 contrasennia: contrasennia,
                 tipo: tipo
             });
+            console.log(tipo)
+            console.log(usuario);
             await UsuarioServicio.create(usuario);
+            console.log("Usuario creado con éxito");
             fetchUsuarios();
         } catch (error) {
+            console.log(error);
             setError("Ocurrió un error al intentar crear el usuarios");
         } finally {
             setLoading(false);
@@ -58,7 +62,7 @@ let useUsuario = (idUsuario) => {
             const usuario = ({
                 usuarioId: id,
                 nombre: nombre,
-                correo: email,
+                correo: correo,
                 contrasennia: contrasennia,
                 tipo: tipo
             });

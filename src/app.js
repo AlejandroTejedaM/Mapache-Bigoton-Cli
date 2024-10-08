@@ -15,7 +15,7 @@ const App = () => {
     const isLogged = usuario.isLogged;
 
     useEffect(() => {
-        const token = "1"; //localStorage.getItem('token');
+        const token = ""//localStorage.getItem('token');
         if (token) {
             setUsuario(prevState => ({
                 ...prevState,
@@ -44,7 +44,8 @@ const App = () => {
                     </>
                 ) : (
                     <Routes>
-                        <Route path="/" element={<Login />} />
+                        <Route path="/*" element={<Login />} />
+                        <Route path="/login" element={<Login />} />
                     </Routes>
                 )}
             </div>
