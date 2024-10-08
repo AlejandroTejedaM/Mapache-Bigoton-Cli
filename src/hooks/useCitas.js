@@ -14,7 +14,6 @@ const useCitas = () => {
         try {
             setLoading(true);
             const response = await citaService.findAll();
-            console.log(response.data);
             setCitas(response.data);
         } catch (error) {
             setError('Error fetching citas');
@@ -23,14 +22,8 @@ const useCitas = () => {
         }
     };
 
-    const createCita = async (fechaHora, idServicio, idUsuario, idBarbero) => {
+    const createCita = async (cita) => {
         try {
-            const cita = {
-                fechaHora,
-                servicio: { servicioId: idServicio },
-                user: { usuarioId: idUsuario },
-                barbero: { barberoId: idBarbero }
-            };
             await citaService.create(cita);
             await fetchCitas(); // Refresh the list of appointments
         } catch (error) {
@@ -51,6 +44,7 @@ const useCitas = () => {
         try {
             await citaService.update(id, cita);
             await fetchCitas(); // Refresh the list of appointments
+            console.log("Cita actualizada");
         } catch (error) {
             setError('Error updating cita');
         }

@@ -1,21 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import $ from 'jquery';
 import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
 import 'datatables.net-bs5';
-import { format } from 'date-fns';
+import {format} from 'date-fns';
 import useCitas from '../../hooks/useCitas';
 import ModalConfirmacionGenerico from '../CitasComponentes/ModalConfirmacionGenerico';
 
-const TablaCitasComponent = ({ onEditCita }) => {
-    const { citas, loading, error, deleteCita, updateCita, fetchCitas } = useCitas();
+const TablaCitasComponent = ({onEditCita, refresh}) => {
+    const {citas, loading, error, deleteCita, updateCita, fetchCitas} = useCitas();
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [selectedCita, setSelectedCita] = useState(null);
-    const [refresh, setRefresh] = useState(false);
     const tableRef = useRef(null);
     const tableInstance = useRef(null);
 
     useEffect(() => {
-        if (!loading) {
+        if (!loading && citas.length > 0) {
             if (tableInstance.current) {
                 tableInstance.current.destroy();
             }
@@ -40,16 +39,16 @@ const TablaCitasComponent = ({ onEditCita }) => {
     const handleConfirmDelete = async () => {
         await deleteCita(selectedCita.citaId);
         setShowConfirmModal(false);
-        setRefresh(!refresh);
+        fetchCitas();
     };
 
     const handleEditCita = async (cita) => {
         await updateCita(cita);
-        setRefresh(!refresh);
+        fetchCitas();
     };
 
     if (loading) {
-        return <div>Cargando...</div>;
+        return <div className={"text-center"}>Cargando...</div>;
     }
 
     if (error) {
@@ -71,6 +70,7 @@ const TablaCitasComponent = ({ onEditCita }) => {
                         <tr>
                             <th>ID</th>
                             <th>Fecha y Hora</th>
+                            <th>Sucursal</th>
                             <th>Servicio</th>
                             <th>Cliente</th>
                             <th>Barbero</th>
@@ -82,6 +82,7 @@ const TablaCitasComponent = ({ onEditCita }) => {
                             <tr key={cita.citaId}>
                                 <td>{cita.citaId || "N/A"}</td>
                                 <td>{format(new Date(cita.fechaHora), 'dd/MM/yyyy HH:mm')}</td>
+                                <td>{cita.barbero.sucursal.nombre}</td>
                                 <td>{cita.servicio?.nombre || 'N/A'}</td>
                                 <td>{cita.user?.nombre || 'N/A'}</td>
                                 <td>{cita.barbero?.nombre || 'N/A'}</td>

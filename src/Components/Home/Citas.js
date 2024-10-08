@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import ModalAgregarCita from '../CitasComponentes/ModalAgregarCita';
@@ -9,7 +9,7 @@ function Citas() {
     const [showModal, setShowModal] = useState(false);
     const [currentCita, setCurrentCita] = useState(null);
     const { citas, loading, error, createCita, updateCita, fetchCitas } = useCitas();
-    const navigate = useNavigate();
+    const [refresh, setRefresh] = useState(0);
 
     const handleAddCita = () => {
         setCurrentCita(null);
@@ -17,31 +17,34 @@ function Citas() {
     };
 
     const handleEditCita = (cita) => {
+        console.log("Editando cita");
         setCurrentCita(cita);
         setShowModal(true);
     };
 
-    const handleSave = async (formData) => {
-        if (currentCita) {
-            await updateCita(currentCita.citaId, formData.fechaHora, formData.idServicio, formData.idusuario, formData.idbarbero);
-        } else {
-            await createCita(formData.fechaHora, formData.idServicio, formData.idusuario, formData.idbarbero);
+    const handleSave = async (cita) => {
+        console.log(cita);
+        if (cita.citaId) {
+            console.log("Actualizando cita");
+            await updateCita(cita.citaId, cita);
+        }else{
+            console.log("Creando cita");
+            await createCita(cita);
         }
-        /*
-         const [formData, setFormData] = useState({
-        fechaHora: data ? format(new Date(data.fechaHora), 'yyyy-MM-dd\'T\'HH:mm') : '',
-        sucursal: {sucursalId: data?.servicio?.sucursal?.sucursalId || ''},
-        servicio: {servicioId:  data?.servicio?.servicioId || ''},
-        barbero : {barberoId: data?.barbero?.barberoId || ''},
-        user : {idusuario: usuario.usuarioId},
-        cita : {citaId: data?.citaId || null}
-    });
-
-         */
-        await fetchCitas();
         setShowModal(false);
-        navigate(0); // Refresh the page
+        setRefresh(prev => prev + 1);
     };
+
+    const handleClose = () => {
+        setShowModal(false);
+        setRefresh(prev => prev + 1);
+    }
+
+    useEffect( () => {
+        async function fetchData() {
+            await fetchCitas();
+        }
+    }, [refresh]);
 
     return (
         <div>
@@ -52,7 +55,7 @@ function Citas() {
             </Row>
             <Row>
                 <Col>
-                    <TablaCitasComponent citas={citas} loading={loading} error={error} onEditCita={handleEditCita} />
+                    <TablaCitasComponent citas={citas} loading={loading} error={error} onEditCita={handleEditCita} refresh={refresh} />
                 </Col>
             </Row>
             <Row>
@@ -62,7 +65,7 @@ function Citas() {
             </Row>
             <ModalAgregarCita
                 show={showModal}
-                handleClose={() => setShowModal(false)}
+                handleClose={handleClose}
                 handleSave={handleSave}
                 data={currentCita}
             />
