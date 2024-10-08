@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import UsuarioContext from "../context/UsuarioContext";
 import UsuarioServicio from "../services/UsuarioServicio";
+import ModalRegitrarUsuario from "./UsuariosComponentes/ModalRegitrarUsuario";
 
 const Login = () => {
     const [correo, setCorreo] = useState('');
@@ -9,6 +10,7 @@ const Login = () => {
     const [error, setError] = useState(null);
     const { setUsuario } = useContext(UsuarioContext);
     const navigate = useNavigate();
+    const [show, setShow] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -68,11 +70,16 @@ const Login = () => {
                     <div>
                         <input type="submit" value="Ingresar" />
                         <div className="Registrarse">
-                            Si no tienes una cuenta <a href="#">Regístrate aquí</a>
+                            Si no tienes una cuenta <a href="#" onClick={()=> setShow(true)}>Regístrate aquí</a>
                         </div>
                     </div>
                 </form>
             </div>
+            <ModalRegitrarUsuario
+                show={show}
+                handleClose={() => setShow(false)}
+                handleSave={() => setShow(false)}
+            />
         </div>
     );
 }
