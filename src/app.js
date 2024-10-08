@@ -11,9 +11,9 @@ import UsuarioContext from './context/UsuarioContext';
 
 const App = () => {
     const { usuario, setUsuario } = useContext(UsuarioContext);
-
+    const isLogged = usuario.isLogged;
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = "1"//localStorage.getItem('token');
         if (token) {
             setUsuario(prevState => ({
                 ...prevState,
@@ -26,7 +26,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <div className="App">
-                {usuario.isLogged ? (
+                {isLogged ? (
                     <>
                         <Header />
                         <div className="content">
@@ -40,7 +40,9 @@ const App = () => {
                         <Footer />
                     </>
                 ) : (
-                    <Login />
+                    <Routes>
+                        <Route path="/" element={<Login />} />
+                    </Routes>
                 )}
             </div>
         </BrowserRouter>
