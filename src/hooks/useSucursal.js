@@ -1,80 +1,56 @@
-import {useEffect, useState} from "react";
-import sucursalService from "../services/SucursalService";
-import barberoService from "../services/BarberoService";
+import { useState, useEffect } from 'react';
+import SucursalServicio from '../services/SucursalService';
 
-let UseSucursal = (idSucursal) => {
+const useSucursales = () => {
     const [sucursales, setSucursales] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         fetchSucursales();
-    }, [idSucursal]);
+    }, []);
 
-    async function fetchSucursales() {
+    const fetchSucursales = async () => {
         try {
             setLoading(true);
-            const response = await sucursalService.findAll();
+            const response = await SucursalServicio.findAll();
             setSucursales(response.data);
-        } catch (error) {
-            setError("Ocurrió un error al intentar obtener los barberos");
+            setError(null);
+        } catch (err) {
+            setError('Error al cargar las sucursales');
         } finally {
             setLoading(false);
         }
-    }
-
-    async function deleteSucursal(id) {
-        try {
-            setLoading(true);
-            await sucursalService.delete(id);
-            fetchSucursales();
-        } catch (error) {
-            setError("Ocurrió un error al intentar eliminar la sucursal");
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    async function createSucursal(nombre, direccion) {
-        try {
-            setLoading(true);
-            const sucursal = ({
-                nombre: nombre,
-                direccion: direccion
-            });
-            await sucursalService.create(sucursal);
-            fetchSucursales();
-        } catch (error) {
-            setError("Ocurrió un error al intentar crear la sucursal");
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    async function updateSucursal(id, nombre, direccion) {
-        try {
-            setLoading(true);
-            const sucursal = ({
-                nombre: nombre,
-                direccion: direccion
-            });
-            await sucursalService.update(id, sucursal);
-            fetchSucursales();
-        } catch (error) {
-            setError("Ocurrió un error al intentar actualizar la sucursal");
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    return {
-        sucursales,
-        loading,
-        error,
-        deleteSucursal,
-        createSucursal,
-        updateSucursal
     };
-}
 
-export default UseSucursal;
+    const addSucursal = async (sucursal) => {
+        try {
+            await SucursalServicio.create(sucursal);
+            fetchSucursales();
+        } catch (err) {
+            setError('Error al añadir la sucursal');
+        }
+    };
+
+    const editSucursal = async (id, sucursal) => {
+        try {
+            await SucursalServicio.update(id, sucursal);
+            fetchSucursales();
+        } catch (err) {
+            setError('Error al editar la sucursal');
+        }
+    };
+
+    const deleteSucursal = async (id) => {
+        try {
+            await SucursalServicio.delete(id);
+            fetchSucursales();
+        } catch (err) {
+            setError('Error al eliminar la sucursal');
+        }
+    };
+
+    return { sucursales, loading, error, addSucursal, editSucursal, deleteSucursal };
+};
+
+export default useSucursales;

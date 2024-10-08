@@ -15,6 +15,7 @@ const Header = () => {
                 <Link className="nav" to="/galeria">Galería</Link>
                 <Link className="nav" to="/servicios">Servicios</Link>
                 <Link className="nav" to="/agenda">Agenda</Link>
+                <Link className="nav" to="/sucursal">Sucursal</Link>
                 <Link className="nav" to="/login">
                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-user-plus"
                          width="32"
