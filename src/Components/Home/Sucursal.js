@@ -51,7 +51,7 @@ const Sucursal = () => {
             </Row>
             <Row>
                 <Col className="text-center py-5">
-                    {/* <Button className="btn btn-dark btn-lg" onClick={handleAddSucursal}>Agregar Sucursal</Button> */}
+                    <Button className="btn btn-dark btn-lg" onClick={handleAddSucursal}>Agregar Sucursal</Button>
                 </Col>
             </Row>
             <ModalAgregarSucursal
