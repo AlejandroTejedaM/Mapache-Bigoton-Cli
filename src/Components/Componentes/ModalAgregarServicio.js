@@ -11,56 +11,48 @@ const ModalAgregarServicio = ({show, handleClose, handleSave, data}) => {
     const [sucursalId, setSucursalId] = useState('');
     const [servicioId, setServicioId] = useState('');
     const {sucursales, loading: loadingSucursal, error: errorSucursal} = useSucursal();
-    const {servicios, loading: loadingServicio, error: errorServicio} = useServicio(sucursalId);
+    const {servicios, loading: loadingServicio, error: errorServicio} = useServicio();
 
     useEffect(() => {
         if (sucursales.length > 0 && !sucursalId) {
             setSucursalId(sucursales[0].sucursalId);
         }
     }, [sucursales]);
-
     useEffect(() => {
+        console.log(data)
         if (data) {
-            setNombre(data.servicios?.nombre || '');
-            setDescripcion(data.servicios?.descripcion || '');
-            setPrecio(data.servicios?.precio || '');
-            setDuracion(data.servicios?.duracion || '');
-            setSucursalId(data.servicio?.sucursal?.sucursalId || '');
+            setServicioId(data.servicioId)
+            setNombre(data?.nombre);
+            setDescripcion(data?.descripcion);
+            setPrecio(data?.precio);
+            setDuracion(data?.duracion);
+            setSucursalId(data?.sucursal?.sucursalId || '');
         }
     }, [data]);
 
-    useEffect(() => {
-        if (sucursalId) {
-            if (servicios.length > 0) {
-                setServicioId(servicios[0].servicioId);
-            }
-        }
-    }, [sucursalId, servicios]);
+
 
     const handleChange = (e) => {
         const {name, value} = e.target;
+        console.log(name)
         if (name === 'nombre') {
             setNombre(value);
-            console.log(value);
         } else if (name === 'descripcion') {
             setDescripcion(value);
-            console.log(value);
         } else if (name === 'precio') {
             setPrecio(value);
-            console.log(value);
         } else if (name === 'duracion') {
             setDuracion(value);
-            console.log(value);
-        } else if (name === 'sucursal') {
+        } else if (name === 'sucursalId') {
             setSucursalId(value);
-            console.log(value);
+            console.log("Cambiada sucursal")
         }
 
     };
 
     const handleSubmit = () => {
         const servicio = {
-            servicioId: data ? data.servicioId : null,
+            servicioId: servicioId,
             nombre,
             descripcion,
             precio: parseFloat(precio),
@@ -80,8 +72,8 @@ const ModalAgregarServicio = ({show, handleClose, handleSave, data}) => {
                     <Form.Group controlId="nombre">
                         <div>Nombre del Servicio</div>
                         <Form.Control
-                            type="text"
                             value={nombre}
+
                             onChange={handleChange}
                             name="nombre"
                             required

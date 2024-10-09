@@ -39,7 +39,7 @@ const useServicio = (sucursalId) => {
 
     const updateServicio = async (id, servicio) => {
         try {
-            await ServicioService.update(id, cita);
+            await ServicioService.update(id, servicio);
             console.log("Servicio actualizado");
         } catch (error) {
             setError('Error updating servicio');
