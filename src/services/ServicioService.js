@@ -16,7 +16,6 @@ axios.interceptors.request.use(
 );
 
 class ServicioService {
-
     async findAll() {
         return axios.get(URL_BASE);
     }
