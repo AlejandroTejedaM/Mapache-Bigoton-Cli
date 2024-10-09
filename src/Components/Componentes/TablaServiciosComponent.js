@@ -5,7 +5,7 @@ import 'datatables.net-bs5';
 import ModalConfirmacionGenerico from '../Componentes/ModalConfirmacionGenerico';
 import useServicio from '../../hooks/useServicio';
 
-const TablaServiciosComponent = ({onEditServicio}) => {
+const TablaServiciosComponent = ({onEditServicio, refresh}) => {
     const {servicios, loading, error, deleteServicio, updateServicio, fetchServicio} = useServicio();
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [selectedServicio, setSelectedServicio] = useState(null);
@@ -24,7 +24,12 @@ const TablaServiciosComponent = ({onEditServicio}) => {
                 orderMulti: true,
             });
         }
+        console.log(servicios)
     }, [loading, servicios]);
+
+    useEffect(() => {
+        fetchServicio();
+    }, [refresh]);
 
     const handleDelete = (servicio) => {
         setSelectedServicio(servicio);
@@ -66,6 +71,7 @@ const TablaServiciosComponent = ({onEditServicio}) => {
                             <th>Descripcion</th>
                             <th>Precio</th>
                             <th>Duracion</th>
+                            <th>Sucursal</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -77,6 +83,7 @@ const TablaServiciosComponent = ({onEditServicio}) => {
                                 <td>{servicio.descripcion}</td>
                                 <td>{servicio.precio}</td>
                                 <td>{servicio.duracion}</td>
+                                <td>{servicio.sucursal.nombre}</td>
                                 <td>
                                     <button className="btn btn-sm btn-primary me-2"
                                             onClick={() => onEditServicio(servicio, handleEditServicio)}>Editar

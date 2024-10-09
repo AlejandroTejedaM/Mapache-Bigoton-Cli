@@ -1,11 +1,26 @@
 import { useState, useEffect } from 'react';
 import ServicioService from '../services/ServicioService';
 
-const useServicio = () => {
+const useServicio = (sucursalId) => {
     const [servicios, setServicios] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    useEffect(() => {
+        fetchServicio();
+    }, []);
+
+    const fetchServicio = async () => {
+        try {
+            setLoading(true);
+            const response = await ServicioService.findAll();
+            setServicios(response.data);
+        } catch (error) {
+            setError("Ocurrió un error al intentar obtener los servicios");
+        } finally {
+            setLoading(false);
+        }
+    }
     const createServicio = async (servicio) => {
         try {
             await ServicioService.create(servicio);
@@ -31,7 +46,7 @@ const useServicio = () => {
         }
     }
 
-    return { servicios, loading, error, createServicio, deleteServicio, updateServicio }
+    return { servicios, loading, error, createServicio, deleteServicio, updateServicio, fetchServicio}
 };
 
 export default useServicio;
